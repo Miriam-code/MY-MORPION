@@ -45,7 +45,7 @@ var p4 = document.createElement('p');
 p4.innerHTML = "Matchs nuls : ";
 var span4 = document.createElement('span');
 span4.innerHTML = "0";
-span4.setAttribute("id","scoreNul :");
+span4.setAttribute("id","scoreNul");
 
 score.appendChild(p);
 score.appendChild(p2);
@@ -68,12 +68,32 @@ let score1 = document.getElementById("scoreX");
 let score2 = document.getElementById("scoreO");
 let scoreNul = document.getElementById("scoreNul");
 let sound = new Audio('clic.mp3');
-
+let sound1 = new Audio('bravo.mp3');
+let sound2 = new Audio('pad.mp3');
+let playbox = document.querySelector(".buttonplay");
+let scorebox = document.getElementById('score');
+let gridbox = document.getElementById('grid');
+let cardbox = document.querySelector(".card");
+let cardH2 = document.querySelector(".h2");
+let body = document.querySelector("body");
 
 score1.style.color = "#ff2d75";
 score2.style.color = "#4fc3dc";
 
+
+// click play 
+
+
+playbox.addEventListener("click", function() {
+    gridbox.style.display = "grid"
+    scorebox.style.display = "flex"
+    playbox.style.display = "none"
+    sound2.play()
+    body.requestFullscreen();
+})
+
 // mémoire des stats du jeu
+
 let state = {
     joueurEnCours: 1,
     scoreJ1: 0,
@@ -148,9 +168,14 @@ const jouerCase = (e) => {
     let isVctoire = verifierVictoire();
 
     if (isVctoire === true) {
+
         // si victoire
 
-        alert("Le gagnant est le joueur " + state.joueurEnCours);
+        gridbox.style.display = "none";
+        scorebox.style.display = "none";
+        cardbox.style.display = "flex";
+        cardH2.textContent = " BRAVO ! Le gagnant est le joueur "+ state.joueurEnCours;
+        sound1.play();
 
         if (state.joueurEnCours == 1) {
             state.scoreJ1++;
@@ -166,17 +191,22 @@ const jouerCase = (e) => {
 
         
     } else if (isVctoire === null) {
-        // si nul
-
-        alert("Match nul !");
 
         state.matchNul++;
+
         scoreNul.textContent = state.matchNul;
         joueur.textContent = "1";
 
+        gridbox.style.display = "none";
+        scorebox.style.display = "none";
+        cardbox.style.display = "flex";
+        cardH2.textContent = " MATCH NUL ! ";
+
+        // si nul
+
         resetState();
         cases.forEach((c) => (c.textContent = ""));
-
+        
     } else if (isVctoire === false) {
         // sinon on continue le jeu
         if (state.joueurEnCours == 1) {
@@ -201,3 +231,11 @@ cases.forEach((el) => {
     el.addEventListener("click", jouerCase);
 
 });
+
+const rejouer = () => {
+    cases.forEach((c) => (c.textContent = ""));
+    cases.forEach((c) => (c.style.border = "thick solid white"));
+    gridbox.style.display = "grid";
+    scorebox.style.display = "flex";
+    cardbox.style.display = "none";
+}
