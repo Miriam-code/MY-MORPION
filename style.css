@@ -41,8 +41,8 @@ body {
     border: 2px solid var(--green);
     background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1%, transparent 40%,transparent 60% , rgba(255, 255, 255, 0.1) 100%);
     color: var(--green);
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4), 0 0 9px 3pxrgba(255, 255, 255, 0.1));
-  }
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4), 0 0 9px 3pxrgba(255, 255, 255, 0.1);
+}
   
 .case:hover {
     color: #82ffc9;
